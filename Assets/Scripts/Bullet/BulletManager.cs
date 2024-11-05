@@ -32,7 +32,7 @@ public class BulletManager : MonoBehaviour
         spawnedAmount++;
     }
 
-    public Bullet GetBullet()
+    public Bullet GetBullet(Vector3 startPosition)
     {
         if (pool.Count > 0 && spawnedAmount < MaxPoolSize)
         {
@@ -41,6 +41,9 @@ public class BulletManager : MonoBehaviour
 
         var bullet = pool[0];
         pool.RemoveAt(0);
+
+        bullet.transform.position = startPosition;
+        bullet.gameObject.SetActive(true);
 
         return bullet;
     }

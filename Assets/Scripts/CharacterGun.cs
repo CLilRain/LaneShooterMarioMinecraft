@@ -33,20 +33,19 @@ public class CharacterGun : MonoBehaviour
             StopCoroutine(shootCoroutine);
         }
 
-        wait = new WaitForSeconds(currentShootInterval);
+
         shootCoroutine = StartCoroutine(ShootCoroutine());
     }
 
-    WaitForSeconds wait;
-
     IEnumerator ShootCoroutine()
     {
+        var wait = new WaitForSeconds(currentShootInterval);
+
         while (true)
         {
             yield return wait;
 
-            var bullet = bulletManager.GetBullet();
-            bullet.transform.position = muzzle.position;
+            var bullet = bulletManager.GetBullet(startPosition: muzzle.position);
             bullet.Shoot(muzzle.forward * currentShootVelocity);
         }
     }
